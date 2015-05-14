@@ -5,13 +5,16 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
+
+import com.alexdrexler.javagame.graphics.Screen;
 
 /**
  * Main Game class.
  * Initializes all basic information for game and runs game loop.
- * 
  * @author alexdrexler
  */
 public class Game extends Canvas implements Runnable {
@@ -24,6 +27,11 @@ public class Game extends Canvas implements Runnable {
 	private Thread gameThread;
 	private JFrame frame;
 	private boolean running = false;
+	private static String title = "Java Game";
+	private Screen screen;
+	private BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+	//convert image into array of pixels.
+	private int[] pixels = ((DataBufferInt)image.getRaster().getDataBuffer()).getData();
 	
 	/**
 	 * Game constructor.
@@ -33,6 +41,7 @@ public class Game extends Canvas implements Runnable {
 		setPreferredSize(size);
 		
 		frame = new JFrame();
+		screen = new Screen(width,height);
 	}
 	
 	/**
@@ -60,16 +69,36 @@ public class Game extends Canvas implements Runnable {
 	 * Run game loop.
 	 */
 	public void run() {
+		long lastTime = System.nanoTime();
+		long timer = System.currentTimeMillis();
+		final double ns = 1000000000.0 / 60.0; //60 ups
+		double delta = 0;
+		int frames = 0;
+		int updates = 0;
 		//game loop.
 		while (running) {
-			update();
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			while (delta >= 1) {
+				update();
+				updates++;
+				delta--;
+			}
 			render();
+			frames++;
+			if (System.currentTimeMillis() - timer > 1000) {
+				timer+=1000;
+				frame.setTitle(title+" | "+updates +" ups, "+ frames +" fps");
+				updates = 0;
+				frames = 0;
+			}
 		}
+		stop();
 	}
 	
 	/**
 	 * Updates game.
-	 * UPS =
 	 */
 	public void update() {
 	}
@@ -84,10 +113,15 @@ public class Game extends Canvas implements Runnable {
 			createBufferStrategy(3);
 			return;
 		}
+		
+		//render pixels and add them to current image.
+		screen.render();
+		for(int i=0; i<pixels.length;i++) pixels[i] = screen.pixels[i];
 		//populate/display buffer
 		Graphics g = bs.getDrawGraphics();
-		g.setColor(Color.GREEN);
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 		g.dispose();
 		bs.show();
 	}
@@ -97,7 +131,7 @@ public class Game extends Canvas implements Runnable {
 		Game game = new Game();
 		//initialize game window.
 		game.frame.setResizable(false);
-		game.frame.setTitle("JavaGame");
+		game.frame.setTitle(title);
 		game.frame.add(game);
 		game.frame.pack();
 		game.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
