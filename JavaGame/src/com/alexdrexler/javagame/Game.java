@@ -1,4 +1,4 @@
-package com.alexdrexler.game;
+package com.alexdrexler.javagame;
 
 import java.awt.Canvas;
 import java.awt.Dimension;
