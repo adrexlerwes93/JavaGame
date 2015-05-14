@@ -11,6 +11,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import com.alexdrexler.javagame.graphics.Screen;
+import com.alexdrexler.javagame.input.Keyboard;
 
 /**
  * Main Game class.
@@ -26,6 +27,7 @@ public class Game extends Canvas implements Runnable {
 	
 	private Thread gameThread;
 	private JFrame frame;
+	private Keyboard key;
 	private boolean running = false;
 	private static String title = "Java Game";
 	private Screen screen;
@@ -40,8 +42,11 @@ public class Game extends Canvas implements Runnable {
 		Dimension size = new Dimension(width*scale,height*scale);
 		setPreferredSize(size);
 		
-		frame = new JFrame();
 		screen = new Screen(width,height);
+		frame = new JFrame();
+		key = new Keyboard();
+		
+		frame.addKeyListener(key);
 	}
 	
 	/**
@@ -97,10 +102,17 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 	
+	int x = 0,y = 0;
+	
 	/**
 	 * Updates game.
 	 */
 	public void update() {
+		key.update();
+		if (key.up) y--;
+		if (key.down) y++;
+		if (key.left) x--;
+		if (key.right) x++;
 	}
 	
 	/**
@@ -115,7 +127,7 @@ public class Game extends Canvas implements Runnable {
 		}
 		
 		//render pixels and add them to current image.
-		screen.render();
+		screen.render(x,y);
 		for(int i=0; i<pixels.length;i++) pixels[i] = screen.pixels[i];
 		//populate/display buffer
 		Graphics g = bs.getDrawGraphics();
