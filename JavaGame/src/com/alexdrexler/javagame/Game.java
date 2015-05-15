@@ -12,6 +12,8 @@ import javax.swing.JFrame;
 
 import com.alexdrexler.javagame.graphics.Screen;
 import com.alexdrexler.javagame.input.Keyboard;
+import com.alexdrexler.javagame.level.Level;
+import com.alexdrexler.javagame.level.RandomLevel;
 
 /**
  * Main Game class.
@@ -28,6 +30,7 @@ public class Game extends Canvas implements Runnable {
 	private Thread gameThread;
 	private JFrame frame;
 	private Keyboard key;
+	private Level level;
 	private boolean running = false;
 	private static String title = "Java Game";
 	private Screen screen;
@@ -45,6 +48,7 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width,height);
 		frame = new JFrame();
 		key = new Keyboard();
+		level = new RandomLevel(64,64);
 		
 		frame.addKeyListener(key);
 	}
@@ -126,9 +130,11 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 		
-		//render pixels and add them to current image.
-		screen.render(x,y);
+		//render pixels from level and add them to current image.
+		screen.clear();
+		level.render(x,y,screen);
 		for(int i=0; i<pixels.length;i++) pixels[i] = screen.pixels[i];
+		
 		//populate/display buffer
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.BLACK);

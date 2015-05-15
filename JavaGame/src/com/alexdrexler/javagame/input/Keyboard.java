@@ -12,6 +12,9 @@ public class Keyboard implements KeyListener {
 	private boolean[] keys = new boolean[65536];
 	public boolean up, down, left, right;
 	
+	/**
+	 * Updates boolean values based on key press, to create response from game.
+	 */
 	public void update() {
 		up = keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_W];
 		down = keys[KeyEvent.VK_DOWN] || keys[KeyEvent.VK_S];

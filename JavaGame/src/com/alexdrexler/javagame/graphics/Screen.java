@@ -2,15 +2,19 @@ package com.alexdrexler.javagame.graphics;
 
 import java.util.Random;
 
+import com.alexdrexler.javagame.level.tile.Tile;
+
 /**
  * Populates array of pixels to be displayed.
  * @author alexdrexler
  */
 public class Screen {
-	private int width, height;
+	public int width;
+	public int height;
 	public int[] pixels;
 	public final int MAP_SIZE = 4;
 	public int[] tiles = new int[MAP_SIZE*MAP_SIZE];
+	public int xOffset, yOffset;
 	
 	private Random random = new Random();
 	
@@ -39,19 +43,31 @@ public class Screen {
 	}
 	
 	/**
-	 * Fill pixels array with current image.
+	 * Render a tile that is present on the screen.
+	 * @param xp	X location of tile on screen.
+	 * @param yp	Y location of tile on screen.
+	 * @param tile		Tile to be rendered.
 	 */
-	public void render(int xOffset, int yOffset) {
-		clear();
-		for (int y = 0; y<height; y++) {
-			int yy = y+yOffset;
-			if(y<0 || y>=height) break;
-			for (int x = 0; x<width; x++) {
-				int xx = x+xOffset;
-				if(x<0 || x>=width) break;
-				int tileIndex = ((xx>>4)&(MAP_SIZE-1))+((yy>>4)&(MAP_SIZE-1)) * MAP_SIZE;
-				pixels[x+y*width] = tiles[tileIndex];
+	public void renderTile(int xp, int yp, Tile tile) {
+		xp -= xOffset; 
+		yp -= yOffset;
+		for (int y = 0; y < tile.sprite.SIZE; y++) {
+			int ya = y + yp;
+			for (int x = 0; x < tile.sprite.SIZE; x++) {
+				int xa = x + xp;
+				if (xa < 0 || xa >= width || ya < 0 || ya >= height) break;
+				pixels[xa+ya*width] = tile.sprite.pixels[x+y*tile.sprite.SIZE];
 			}
 		}
+	}
+	
+	/**
+	 * Set offset based on screen location
+	 * @param xOffset
+	 * @param yOffset
+	 */
+	public void setOffset(int xOffset, int yOffset) {
+		this.xOffset = xOffset;
+		this.yOffset = yOffset;
 	}
 }
