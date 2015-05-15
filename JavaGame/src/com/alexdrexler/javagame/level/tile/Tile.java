@@ -15,6 +15,8 @@ public class Tile {
 	
 	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
 	public static Tile grass = new GrassTile(Sprite.grass);
+	public static Tile flower = new GrassTile(Sprite.flower);
+	public static Tile rock = new GrassTile(Sprite.rock);
 	
 	/**
 	 * Tile constructor.
