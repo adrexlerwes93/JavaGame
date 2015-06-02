@@ -10,6 +10,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import com.alexdrexler.javagame.entity.mob.Player;
 import com.alexdrexler.javagame.graphics.Screen;
 import com.alexdrexler.javagame.input.Keyboard;
 import com.alexdrexler.javagame.level.Level;
@@ -31,6 +32,7 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	private Keyboard key;
 	private Level level;
+	private Player player;
 	private boolean running = false;
 	private static String title = "Java Game";
 	private Screen screen;
@@ -49,6 +51,7 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		key = new Keyboard();
 		level = new RandomLevel(64,64);
+		player = new Player(key);
 		
 		frame.addKeyListener(key);
 	}
@@ -106,17 +109,12 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 	
-	int x = 0,y = 0;
-	
 	/**
 	 * Updates game.
 	 */
 	public void update() {
 		key.update();
-		if (key.up) y--;
-		if (key.down) y++;
-		if (key.left) x--;
-		if (key.right) x++;
+		player.update();
 	}
 	
 	/**
@@ -132,7 +130,10 @@ public class Game extends Canvas implements Runnable {
 		
 		//render pixels from level and add them to current image.
 		screen.clear();
-		level.render(x,y,screen);
+		int xScroll = player.x - screen.width/2;
+		int yScroll = player.y - screen.height/2 + 16;
+		level.render(xScroll,yScroll,screen);
+		player.render(screen);
 		for(int i=0; i<pixels.length;i++) pixels[i] = screen.pixels[i];
 		
 		//populate/display buffer

@@ -16,6 +16,20 @@ public class Sprite {
 	public static Sprite rock = new Sprite(16,2,0,SpriteSheet.testSheet);
 	public static Sprite voidSprite = new Sprite(16, 0x777777);
 	
+	public static Sprite playerUp = new Sprite(16,3,13,SpriteSheet.testSheet);
+	public static Sprite playerUpM1 = new Sprite(16, 3, 14, SpriteSheet.testSheet);
+	public static Sprite playerUpM2 = new Sprite(16, 3, 15, SpriteSheet.testSheet);
+	public static Sprite playerDown = new Sprite(16,1,13,SpriteSheet.testSheet);
+	public static Sprite playerDownM1 = new Sprite(16,1,14,SpriteSheet.testSheet);
+	public static Sprite playerDownM2 = new Sprite(16,1,15,SpriteSheet.testSheet);
+	public static Sprite playerLeft = new Sprite(16,2,13,SpriteSheet.testSheet);
+	public static Sprite playerLeftM1 = new Sprite(16,2,14,SpriteSheet.testSheet);
+	public static Sprite playerLeftM2 = new Sprite(16,2,15,SpriteSheet.testSheet);
+	public static Sprite playerRight = new Sprite(16,0,13,SpriteSheet.testSheet);
+	public static Sprite playerRightM1 = new Sprite(16,0,14,SpriteSheet.testSheet);
+	public static Sprite playerRightM2 = new Sprite(16,0,15,SpriteSheet.testSheet);
+	
+	
 	/**
 	 * Sprite constructor from SpriteSheet.
 	 * @param size	Size of one dimension of the sprite.
