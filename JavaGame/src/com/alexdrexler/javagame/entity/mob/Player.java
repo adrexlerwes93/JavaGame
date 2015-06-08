@@ -36,7 +36,7 @@ public class Player extends Mob {
 	 */
 	public void update() {
 		int xa = 0; int ya = 0;
-		if (anim < 100) anim++;
+		if (anim < 1000) anim++;
 		else anim = 0;
 		if (input.up) ya--;
 		if (input.down) ya++;
@@ -56,7 +56,7 @@ public class Player extends Mob {
 		if (dir == 2) {
 			sprite = Sprite.playerDown;
 			if (moving) {
-				if (anim % 20 > 10) {
+				if (anim % 30 > 15) {
 					sprite = Sprite.playerDownM1;
 				}
 				else sprite = Sprite.playerDownM2;
@@ -65,7 +65,7 @@ public class Player extends Mob {
 		if (dir == 0) {
 			sprite = Sprite.playerUp;
 			if (moving) {
-				if (anim % 20 > 10) {
+				if (anim % 30 > 15) {
 					sprite = Sprite.playerUpM1;
 				}
 				else sprite = Sprite.playerUpM2;
@@ -74,7 +74,7 @@ public class Player extends Mob {
 		if (dir == 1) {
 			sprite = Sprite.playerRight;
 			if (moving) {
-				if (anim % 20 > 10) {
+				if (anim % 30 > 15) {
 					sprite = Sprite.playerRightM1;
 				}
 				else sprite = Sprite.playerRightM2;
@@ -83,7 +83,7 @@ public class Player extends Mob {
 		if (dir ==3) {
 			sprite = Sprite.playerLeft;
 			if (moving) {
-				if (anim % 20 > 10) {
+				if (anim % 30 > 15) {
 					sprite = Sprite.playerLeftM1;
 				}
 				else sprite = Sprite.playerLeftM2;

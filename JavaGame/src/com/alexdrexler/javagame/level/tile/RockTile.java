@@ -3,16 +3,20 @@ package com.alexdrexler.javagame.level.tile;
 import com.alexdrexler.javagame.graphics.Sprite;
 
 /**
- * Tile for a grass object.
+ * Tile for a rock object.
  * @author alexdrexler
  */
-public class GrassTile extends Tile {
+public class RockTile extends Tile {
 
 	/**
-	 * GrassTile constructor.
+	 * RockTile constructor.
 	 * @param sprite	Sprite image for the tile.
 	 */
-	public GrassTile(Sprite sprite) {
+	public RockTile(Sprite sprite) {
 		super(sprite);
+	}
+	
+	public boolean solid() {
+		return true;
 	}
 }

@@ -1,6 +1,6 @@
-package com.alexdrexler.javagame.level.tile;
+package com.alexdrexler.gameEngine.level.tile;
 
-import com.alexdrexler.javagame.graphics.Sprite;
+import com.alexdrexler.gameEngine.graphics.Sprite;
 
 /**
  * Tile for a grass object.

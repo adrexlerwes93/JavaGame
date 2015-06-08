@@ -1,7 +1,7 @@
-package com.alexdrexler.javagame.level.tile;
+package com.alexdrexler.gameEngine.level.tile;
 
-import com.alexdrexler.javagame.graphics.Screen;
-import com.alexdrexler.javagame.graphics.Sprite;
+import com.alexdrexler.gameEngine.graphics.Screen;
+import com.alexdrexler.gameEngine.graphics.Sprite;
 
 /**
  * Creates a tile that contains an image and some basic information.
@@ -9,14 +9,23 @@ import com.alexdrexler.javagame.graphics.Sprite;
  * @author alexdrexler
  */
 public class Tile {
-
+	
+	/**********************************************
+	 * Static tile objects to be rendered by level.
+	 */
+	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
+	
+	public static Tile grass = new GrassTile(Sprite.grass);
+	public static Tile flowers = new FlowerTile(Sprite.flowers);
+	public static Tile rock = new RockTile(Sprite.rock);
+	public static Tile water = new WaterTile(Sprite.water);
+	public static Tile brick = new GrassTile(Sprite.brick);
+	public static Tile lava = new WaterTile(Sprite.lava);
+	
+	/**********************************************/
+	
 	public int x,y;
 	public Sprite sprite;
-	
-	public static Tile voidTile = new VoidTile(Sprite.voidSprite);
-	public static Tile grass = new GrassTile(Sprite.grass);
-	public static Tile flower = new FlowerTile(Sprite.flower);
-	public static Tile rock = new RockTile(Sprite.rock);
 	
 	/**
 	 * Tile constructor.
@@ -33,7 +42,7 @@ public class Tile {
 	 * @param screen	Screen object that renders tile.
 	 */
 	public void render(int x, int y, Screen screen) {
-		screen.renderTile(x<<4, y<<4, this);
+		screen.renderTile(x << 4, y << 4, this);
 	}
 	
 	/**
@@ -43,4 +52,5 @@ public class Tile {
 	public boolean solid() {
 		return false;
 	}
+	
 }

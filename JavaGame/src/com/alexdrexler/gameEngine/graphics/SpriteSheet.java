@@ -1,4 +1,4 @@
-package com.alexdrexler.javagame.graphics;
+package com.alexdrexler.gameEngine.graphics;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -12,11 +12,16 @@ import javax.imageio.ImageIO;
  */
 public class SpriteSheet {
 	
+	/**********************************************
+	 * Static spritesheets to be referenced.
+	 */
+	public static SpriteSheet tiles = new SpriteSheet("/gameEngine/spritesheets/spritesheet1.png", 256);
+	
+	/**********************************************/
+
 	private String path;
 	public final int SIZE;
 	public int[] pixels;
-	
-	public static SpriteSheet testSheet = new SpriteSheet("/javaGame/testSpriteSheet.png",256);
 	
 	/**
 	 * SpriteSheet constructor.
@@ -25,11 +30,11 @@ public class SpriteSheet {
 	 */
 	public SpriteSheet(String path, int size) {
 		this.path = path;
-		this.SIZE = size;
+		SIZE = size;
 		pixels = new int[SIZE*SIZE];
 		load();
 	}
-
+	
 	/**
 	 * Populates pixels array from PNG image at path.
 	 */
@@ -43,4 +48,5 @@ public class SpriteSheet {
 			e.printStackTrace();
 		}
 	}
+	
 }
