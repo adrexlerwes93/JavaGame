@@ -57,15 +57,15 @@ public class Game extends Canvas implements Runnable {
 		frame = new JFrame();
 		frame.setTitle(title);
 		key = new Keyboard();
-		level = new SpawnLevel("/gameEngine/levels/spawnLevel.png");
+		level = new SpawnLevel("/gameEngine/levels/spawnlevel.png");
 		TileCoordinate playerSpawn = new TileCoordinate(32,32);
 		player = new Player(playerSpawn.getX(),playerSpawn.getY(),key);
 		player.init(level);
 		frame.addKeyListener(key);
 		//CODE FOR MOUSE LISTENER
-		//Mouse mouse = new Mouse();
-		//addMouseListener(mouse);
-		//addMouseMotionListener(mouse);
+		Mouse mouse = new Mouse();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 	
 	public Level getLevel() {
