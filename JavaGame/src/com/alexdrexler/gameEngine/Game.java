@@ -160,9 +160,9 @@ public class Game extends Canvas implements Runnable {
 		Graphics g = bs.getDrawGraphics();
 		//display all graphics here
 		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
-		g.setColor(Color.WHITE);
+		g.setColor(Color.RED);
 		g.setFont(new Font("Verdana", 0, 50));
-		//g.fillRect(Mouse.getX(), Mouse.getY(), 32, 32);
+		g.fillRect(Mouse.getX(), Mouse.getY(), 32, 32);
 		g.dispose();
 		bs.show();
 	}
